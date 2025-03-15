@@ -1,8 +1,8 @@
-Back-End/package.json
-Back-End/package-lock.json
+#Back-End/package.json
+#Back-End/package-lock.json
 Back-End/node_modules/
-Front-End/App/package.json
-Front-End/App/package-lock.json
+#Front-End/App/package.json
+#Front-End/App/package-lock.json
 Front-End/App/node_modules/
 Back-End/src/MongoDB/connect.js
 Back-End/src/MongoDB/test.js
