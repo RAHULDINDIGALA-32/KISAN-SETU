@@ -17,8 +17,14 @@
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/native-stack": "^7.2.0",
     "@react-navigation/stack": "^7.1.1",
+<<<<<<< HEAD
     "expo": "^53.0.7",
     "expo-status-bar": "~2.2.3",
+=======
+    "expo": "~52.0.31",
+    "expo-status-bar": "~2.0.1",
+    "myapp": "file:",
+>>>>>>> 42150a74faae51262c16d3755172a241d531024f
     "nativewind": "^4.1.23",
     "react": "19.0.0",
     "react-icons": "^5.5.0",

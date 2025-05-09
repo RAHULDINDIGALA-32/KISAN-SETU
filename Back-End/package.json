@@ -5,7 +5,8 @@
   "main": "index.mjs",
   "scripts": {
     "start_dev": "nodemon ./src/index.mjs",
-    "start": "node ./src/index.mjs"
+    "start": "node ./src/index.mjs",
+    "dev": "nodemon ./src/test.js"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +19,7 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "express-validator": "^7.2.0",
+    "kisansetu-server": "file:",
     "mongo-connect": "^0.0.6",
     "mongoose": "^8.6.2",
     "passport": "^0.7.0",
