@@ -1,5 +1,21 @@
 import mongoose from "mongoose";
 
+const commentSchema = new mongoose.Schema({
+    text: {
+        type: mongoose.Schema.Types.String,
+        required: true
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    createdAt: {
+        type: mongoose.Schema.Types.Date,
+        default: Date.now
+    }
+});
+
 const postSchema = new mongoose.Schema({
     text: {
         type: mongoose.Schema.Types.String,
@@ -20,7 +36,8 @@ const postSchema = new mongoose.Schema({
     downvotes: {
         type: mongoose.Schema.Types.Number,
         default: 0
-    }
+    },
+    comments: [commentSchema]
 });
 
 const communitySchema = new mongoose.Schema({

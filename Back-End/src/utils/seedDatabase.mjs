@@ -87,7 +87,7 @@ seedDatabase();
 
 import mongoose from 'mongoose';
 import { User } from '../MongoDB/usersDB.mjs';
-import { Community } from '../MongoDB/community.mjs';
+import { Community } from '../MongoDB/communityDB.mjs';
 
 mongoose.connect('mongodb://localhost/KisanSetu-server', {
     useNewUrlParser: true,
@@ -96,54 +96,55 @@ mongoose.connect('mongodb://localhost/KisanSetu-server', {
 
 const posts = [
     {
-        text: 'How to grow organic tomatoes?',
-        image: 'https://in.images.search.yahoo.com/images/view;_ylt=Awr1QQ1ZmalnE9YAaAi9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzc1NzIwYTlmZWI5NTdmNzcyOGMxNGQ2OGEzMmIyNzQ5BGdwb3MDNDQEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3DHow%2Bto%2Bgrow%2Borganic%2Btomatoes%253F%26type%3DE210IN885G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D44&w=3024&h=2013&imgurl=www.thespruce.com%2Fthmb%2F8K-JLbxy5pBfl0KeUqMgCMQb27o%3D%2F3024x0%2Ffilters%3Ano_upscale%28%29%3Amax_bytes%28150000%29%3Astrip_icc%28%29%2Fgrowing-tomatoes-1403296-01-e87fc6443b55423890448cabb12efeba.jpg&rurl=https%3A%2F%2Fwww.thespruce.com%2Fgrowing-tomatoes-1403296&size=248KB&p=How+to+grow+organic+tomatoes%3F&oid=75720a9feb957f7728c14d68a32b2749&fr2=piv-web&fr=mcafee&tt=Everything+You+Need+to+Know+About+Growing+Tomatoes&b=0&ni=21&no=44&ts=&tab=organic&sigr=1iiUdnLZsQCn&sigb=TCAjP8CHxN0s&sigi=Vqoz25RX6ElD&sigt=807_H0iPaaR.&.crumb=PtKIIR0PZvN&fr=mcafee&fr2=piv-web&type=E210IN885G0',
-        upvotes: 10,
-        downvotes: 2,
+      text: 'How to grow organic tomatoes?',
+      image: 'https://drearth.com/wp-content/uploads/tomato-iStock-174932787.jpg',
+      upvotes: 10,
+      downvotes: 2,
     },
     {
-        text: 'Best practices for sustainable farming',
-        image: 'https://www.environmentbuddy.com/wp-content/uploads/2020/12/Sustainable-Farming-Methods-Practices-Infographic.jpg',
-        upvotes: 20,
-        downvotes: 1,
+      text: 'Best practices for sustainable farming',
+      image: 'https://mitraweb.in/blogs/wp-content/uploads/2024/07/seven-reasone.jpg',
+      upvotes: 20,
+      downvotes: 1,
     },
     {
-        text: 'How to deal with pests naturally?',
-        image: 'https://in.images.search.yahoo.com/images/view;_ylt=AwrKEYOdmaln6H8p8.q9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzljMGQzYjcyZDVmODlhODFhNzkxNDUxOTE3YTFhM2UxBGdwb3MDNDUEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3DHow%2Bto%2Bdeal%2Bwith%2Bpests%2Bnaturally%253F%26ei%3DUTF-8%26type%3DE210IN885G0%26fr%3Dmcafee%26fr2%3Dp%253As%252Cv%253Ai%252Cm%253Asb-top%26tab%3Dorganic%26ri%3D45&w=1200&h=630&imgurl=plantcaretoday.com%2Fwp-content%2Fuploads%2Forganic-natural-pest-control-t1-min.jpeg&rurl=https%3A%2F%2Fplantcaretoday.com%2Fneem-oil-for-plants.html&size=33KB&p=How+to+deal+with+pests+naturally%3F&oid=9c0d3b72d5f89a81a791451917a1a3e1&fr2=p%3As%2Cv%3Ai%2Cm%3Asb-top&fr=mcafee&tt=Neem+Oil+Insecticide%3A+Natural+Pesticide+For+Plants&b=0&ni=160&no=45&ts=&tab=organic&sigr=GquFncA7ca3f&sigb=YfSAcKBtYfvN&sigi=XgfWEmdfSOC0&sigt=Cr7OLbb30SBa&.crumb=PtKIIR0PZvN&fr=mcafee&fr2=p%3As%2Cv%3Ai%2Cm%3Asb-top&type=E210IN885G0',
-        upvotes: 15,
-        downvotes: 3,
+      text: 'How to deal with pests naturally?',
+      image: 'https://plantcaretoday.com/wp-content/uploads/organic-natural-pest-control-t1-min.jpeg',
+      upvotes: 15,
+      downvotes: 3,
     },
     {
-        text: 'Effective irrigation techniques for small farms',
-        image: 'https://in.images.search.yahoo.com/images/view;_ylt=AwrKBJTImaln1YErwUa9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkA2NiMDI4MDM3Zjc2NTc2Y2U1NTA2YTEzYzJiMTg1YWE4BGdwb3MDNARpdANiaW5n?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3DEffective%2Birrigation%2Btechniques%2Bfor%2Bsmall%2Bfarms%26ei%3DUTF-8%26type%3DE210IN885G0%26fr%3Dmcafee%26fr2%3Dp%253As%252Cv%253Ai%252Cm%253Asb-top%26tab%3Dorganic%26ri%3D4&w=1170&h=761&imgurl=cropaia.com%2Fwp-content%2Fuploads%2FFurrow-irrigation.jpg&rurl=https%3A%2F%2Fcropaia.com%2Fblog%2Firrigation-system-design%2F&size=486KB&p=Effective+irrigation+techniques+for+small+farms&oid=cb028037f76576ce5506a13c2b185aa8&fr2=p%3As%2Cv%3Ai%2Cm%3Asb-top&fr=mcafee&tt=Principles+of+irrigation+systems+design+%7C+Cropaia&b=0&ni=160&no=4&ts=&tab=organic&sigr=Nv635IkYVWVp&sigb=VIR7WHwlftfh&sigi=Nu61swLqI2Nv&sigt=mELNmOUayM6Y&.crumb=PtKIIR0PZvN&fr=mcafee&fr2=p%3As%2Cv%3Ai%2Cm%3Asb-top&type=E210IN885G0',
-        upvotes: 25,
-        downvotes: 5,
+      text: 'Effective irrigation techniques for small farms',
+      image: 'https://cropaia.com/wp-content/uploads/Furrow-irrigation.jpg',
+      upvotes: 25,
+      downvotes: 5,
     },
     {
-        text: 'Composting 101: How to make your own compost',
-        image: 'https://example.com/compost.jpg',
-        upvotes: 30,
-        downvotes: 4,
+      text: 'Composting 101: How to make your own compost',
+      image: 'https://www.ecepl.com/wp-content/uploads/2023/04/WhatsApp-Image-2023-04-05-at-12.53.05-PM-2.jpeg',
+      upvotes: 30,
+      downvotes: 4,
     },
     {
-        text: 'The benefits of crop rotation',
-        image: 'https://example.com/crop-rotation.jpg',
-        upvotes: 18,
-        downvotes: 2,
+      text: 'The benefits of crop rotation',
+      image: 'https://unicropbiochem.com/wp-content/uploads/2024/09/56.webp',
+      upvotes: 18,
+      downvotes: 2,
     },
     {
-        text: 'How to start a small organic farm',
-        image: 'https://example.com/organic-farm.jpg',
-        upvotes: 22,
-        downvotes: 3,
+      text: 'How to start a small organic farm',
+      image: 'https://static-web.upmetrics.co/wp-content/uploads/2022/07/02092416/organic-farm-business-plan.png',
+      upvotes: 22,
+      downvotes: 3,
     },
     {
-        text: 'Using cover crops to improve soil health',
-        image: 'https://tse3.mm.bing.net/th?id=OIP.jZNPcVP8yNybQCDE5CwAOQHaGN&pid=Api&P=0&h=180',
-        upvotes: 16,
-        downvotes: 1,
+      text: 'Using cover crops to improve soil health',
+      image: 'https://wilkes.ces.ncsu.edu/wp-content/uploads/2014/12/crop-rotation.jpg',
+      upvotes: 16,
+      downvotes: 1,
     },
-];
+  ];
+  
 
 const seedCommunityDatabase = async () => {
     try {

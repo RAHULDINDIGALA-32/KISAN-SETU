@@ -3,7 +3,7 @@ import passport from "passport";
 
 const router = new Router();
 
-router.post("/api/auth", passport.authenticate("local"), (req, res) => {
+router.post("/api/auth/login", passport.authenticate("local"), (req, res) => {
     res.status(200).json({ message: "Login Successful", user: req.user });
     console.log("Login Successful: " + req.user.userName);
 });
@@ -30,5 +30,11 @@ router.post("/api/auth/logout", (req, res) => {
     });
 });
 
+export const isAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.status(401).json({ message: 'Unauthorized' });
+};
 
 export default router;

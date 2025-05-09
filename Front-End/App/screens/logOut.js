@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from '../utils/authContext';
+
+const BASE_URL = 'http://172.17.198.119:3000/api';
 
 const Logout = ({ navigation }) => {
+  const { setIsLoggedIn, setUserDetails } = useContext(AuthContext); // Get AuthContext methods
+
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://172.16.216.138:3000/api/auth/logout', {
+      const response = await fetch(`${BASE_URL}/auth/logout`, {
         method: 'POST',
         credentials: 'include', 
       });
 
       if (response.ok) {
-        await AsyncStorage.removeItem('isLoggedIn');
-        await AsyncStorage.removeItem('userType');
-        await AsyncStorage.removeItem('userDetails');
-
+        await AsyncStorage.multiRemove(['isLoggedIn', 'userType', 'userDetails']);
+        setIsLoggedIn(false);
+        setUserDetails(null);
         navigation.replace('Login');
       } else {
         Alert.alert('Logout Failed', 'Something went wrong, please try again.');

@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
-import {createDrawerNavigator,DrawerContentScrollView,DrawerItemList, DrawerItem,} from '@react-navigation/drawer';
 
 const Header = ({ navigation }) => {
   return (

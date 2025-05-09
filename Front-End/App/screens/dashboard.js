@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 
+
+const BASE_URL = 'http://172.17.198.119:3000/api';
+
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +15,7 @@ const Dashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('http://172.16.216.138:3000/api/dashboard'); 
+      const response = await fetch(`${BASE_URL}/dashboard`); 
       if (!response.ok) throw new Error('Failed to fetch stats');
 
       const data = await response.json();

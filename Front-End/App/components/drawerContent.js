@@ -1,38 +1,18 @@
-import React, { useState, useCallback } from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
-
+import { AuthContext, AuthProvider } from '../utils/authContext';  
 const CustomDrawerContent = (props) => {
-  const [userDetails, setUserDetails] = useState({});
-
-  useFocusEffect(
-    useCallback(() => {
-      const fetchUserDetails = async () => {
-        try {
-          const userDetailsString = await AsyncStorage.getItem('userDetails');
-          if (userDetailsString) {
-            const userDetails = JSON.parse(userDetailsString);
-            setUserDetails(userDetails);
-          }
-        } catch (error) {
-          console.error('Failed to load user details from AsyncStorage:', error);
-        }
-      };
-
-      fetchUserDetails();
-    }, [])
-  );
+  const { userDetails } = useContext(AuthContext);  
 
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.userDetailsContainer}>
         <Ionicons name="person-circle-outline" size={80} color="#1D3237ff" />
-        <Text style={styles.userName}>{userDetails.name || "Guest"}</Text>
-        <Text style={styles.userPhone}>{userDetails.phone || "No Phone"}</Text>
-        <Text style={styles.userType}>{userDetails.type || "Unknown"}</Text>
+        <Text style={styles.userName}>{userDetails?.userName || "Guest"}</Text>
+        <Text style={styles.userPhone}>{userDetails?.phoneNo || "No Phone"}</Text>
+        <Text style={styles.userType}>{userDetails?.userType || "Unknown"}</Text>
       </View>
       <View style={styles.section}>
         <DrawerItem
@@ -97,6 +77,9 @@ const CustomDrawerContent = (props) => {
     </DrawerContentScrollView>
   );
 };
+
+
+
 
 const styles = StyleSheet.create({
   userDetailsContainer: {

@@ -1,9 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useFocusEffect } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Intro from './screens/intro';
 import Header from './components/header';
 import Notification from './screens/notify';
@@ -11,43 +8,12 @@ import MainDrawer from './components/main_drawer';
 import You from './screens/you';
 import Login from './screens/login';
 import Logout from './screens/logOut';
-
+import ProductDetails from './screens/productDetails';
+import { AuthProvider, AuthContext  } from './utils/authContext';
 const Stack = createNativeStackNavigator();
 
-export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userType, setUserType] = useState(null);
-
-  const checkLoginStatus = async () => {
-    try {
-      const response = await fetch('http://172.16.216.138:3000/api/auth/status', { 
-        method: 'GET',
-        credentials: 'include', 
-      });
-
-      if (response.ok) {
-        const user = await response.json();
-        setIsLoggedIn(true);
-        setUserType(user.userType);
-        await AsyncStorage.setItem('isLoggedIn', 'true');
-        await AsyncStorage.setItem('userType', user.userType);
-        await AsyncStorage.setItem('userDetails', JSON.stringify(user));
-      } else {
-        setIsLoggedIn(false);
-        setUserType(null);
-        await AsyncStorage.removeItem('isLoggedIn');
-        await AsyncStorage.removeItem('userType');
-        await AsyncStorage.removeItem('userDetails');
-      }
-    } catch (error) {
-      console.error('Failed to check login status:', error);
-    }
-  };
-
-  useEffect(() => {
-    checkLoginStatus();
-  }, []);
-
+function AppNavigator() {
+  const { isLoggedIn, userDetails } = useContext(AuthContext);
  
   return (
     <NavigationContainer>
@@ -56,7 +22,7 @@ export default function App() {
         {isLoggedIn ? (
           <Stack.Screen
             name="Main"
-            component={(props) => <MainDrawer {...props} userType={userType} />}
+            component={(props) => <MainDrawer {...props} userType={userDetails.userType} />}
             options={{
               header: ({ navigation }) => <Header navigation={navigation} />,
             }}
@@ -70,6 +36,7 @@ export default function App() {
             }}
           />
         )}
+        <Stack.Screen name="ProductDetails" component={ProductDetails} options={{ title: 'Product Details' }} />
         <Stack.Screen name="Notifications" component={Notification} options={{ headerShown: true }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Logout" component={Logout} options={{ headerShown: false }} />
@@ -79,15 +46,15 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: 'red',
-    fontSize: 20,
-  },
-});
+
+
+
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppNavigator />
+    </AuthProvider>
+  );
+}
+    

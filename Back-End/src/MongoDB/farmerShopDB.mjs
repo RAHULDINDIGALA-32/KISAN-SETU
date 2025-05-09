@@ -44,3 +44,4 @@ const farmerShopSchema = new mongoose.Schema({
 });
 
 export const FarmerShop = mongoose.model("FarmerShop", farmerShopSchema);
+export const Product = mongoose.model("Product", productSchema); 
